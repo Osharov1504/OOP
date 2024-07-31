@@ -1,0 +1,90 @@
+public class HotDrink {
+    private String name;
+    private int volume;
+
+    public HotDrink(String name, int volume) {
+        this.name = name;
+        this.volume = volume;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    @Override
+    public String toString() {
+        return "HotDrink{name='" + name + "', volume=" + volume + "}";
+    }
+}
+
+// HotDrinkWithTemperature.java
+public class HotDrinkWithTemperature extends HotDrink {
+    private int temperature;
+
+    public HotDrinkWithTemperature(String name, int volume, int temperature) {
+        super(name, volume);
+        this.temperature = temperature;
+    }
+
+    public int getTemperature() {
+        return temperature;
+    }
+
+    @Override
+    public String toString() {
+        return "HotDrinkWithTemperature{name='" + getName() + "', volume=" + getVolume() + ", temperature=" + temperature + "}";
+    }
+}
+
+// VendingMachine.java
+public interface VendingMachine {
+    HotDrink getProduct(String name, int volume, int temperature);
+}
+
+// HotDrinkVendingMachine.java
+import java.util.ArrayList;
+import java.util.List;
+
+public class HotDrinkVendingMachine implements VendingMachine {
+    private List<HotDrinkWithTemperature> drinks;
+
+    public HotDrinkVendingMachine() {
+        drinks = new ArrayList<>();
+    }
+
+    public void addDrink(HotDrinkWithTemperature drink) {
+        drinks.add(drink);
+    }
+
+    @Override
+    public HotDrink getProduct(String name, int volume, int temperature) {
+        for (HotDrinkWithTemperature drink : drinks) {
+            if (drink.getName().equals(name) && drink.getVolume() == volume && drink.getTemperature() == temperature) {
+                return drink;
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        HotDrinkWithTemperature tea = new HotDrinkWithTemperature("Tea", 250, 75);
+        HotDrinkWithTemperature coffee = new HotDrinkWithTemperature("Coffee", 200, 80);
+        HotDrinkWithTemperature cocoa = new HotDrinkWithTemperature("Cocoa", 300, 70);
+
+        HotDrinkVendingMachine vendingMachine = new HotDrinkVendingMachine();
+        vendingMachine.addDrink(tea);
+        vendingMachine.addDrink(coffee);
+        vendingMachine.addDrink(cocoa);
+
+        HotDrink product = vendingMachine.getProduct("Tea", 250, 75);
+        if (product != null) {
+            System.out.println("Dispensed: " + product);
+        } else {
+            System.out.println("Product not found.");
+        }
+    }
+}
