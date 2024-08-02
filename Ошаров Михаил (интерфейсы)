@@ -1,0 +1,13 @@
+import java.util.List;
+
+public interface QueueBehaviour {
+    void takeInQueue(Person person);
+    void releaseFromQueue();
+    void serveNextInQueue();
+}
+
+public interface MarketBehaviour {
+    void enterMarket(Person person);
+    void exitMarket(Person person);
+    void update();
+}
