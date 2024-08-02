@@ -1,0 +1,70 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Market implements QueueBehaviour, MarketBehaviour {
+    private Queue<Person> queue;
+
+    public Market() {
+        this.queue = new LinkedList<>();
+    }
+
+    @Override
+    public void takeInQueue(Person person) {
+        queue.add(person);
+        System.out.println(person.getName() + " вошел в очередь.");
+    }
+
+    @Override
+    public void releaseFromQueue() {
+        if (!queue.isEmpty()) {
+            Person person = queue.poll();
+            System.out.println(person.getName() + " покинул очередь.");
+        } else {
+            System.out.println("Очередь пуста, никого нельзя выпустить.");
+        }
+    }
+
+    @Override
+    public void serveNextInQueue() {
+        if (!queue.isEmpty()) {
+            Person person = queue.peek();
+            System.out.println(person.getName() + " обслуживается.");
+        } else {
+            System.out.println("Очередь пуста, некому обслуживать.");
+        }
+    }
+
+    @Override
+    public void enterMarket(Person person) {
+        System.out.println(person.getName() + " вошел в магазин.");
+        takeInQueue(person);
+    }
+
+    @Override
+    public void exitMarket(Person person) {
+        System.out.println(person.getName() + " покинул магазин.");
+        releaseFromQueue();
+    }
+
+    @Override
+    public void update() {
+        System.out.println("Обновление состояния магазина...");
+        serveNextInQueue();
+        releaseFromQueue();
+    }
+
+    public static void main(String[] args) {
+        Market market = new Market();
+        Person p1 = new Person("Alice");
+        Person p2 = new Person("Bob");
+        Person p3 = new Person("Charlie");
+
+        market.enterMarket(p1);
+        market.enterMarket(p2);
+        market.enterMarket(p3);
+
+        market.update();
+        market.update();
+        market.update();
+    }
+}
