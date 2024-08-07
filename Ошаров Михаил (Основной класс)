@@ -1,0 +1,16 @@
+public class Main {
+    public static void main(String[] args) {
+        TeacherService teacherService = new TeacherService();
+        TeacherView teacherView = new TeacherView();
+        TeacherController teacherController = new TeacherController(teacherService, teacherView);
+
+        teacherController.createTeacher("Иванов Иван", "Математика");
+        teacherController.createTeacher("Пупкин Василий", "Физика");
+
+        teacherController.displayAllTeachers();
+
+        teacherController.updateTeacher(1, "Иванов Иван", "Биология");
+
+        teacherController.displayTeacher(1);
+    }
+}
