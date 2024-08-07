@@ -1,0 +1,33 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class TeacherService {
+    private List<Teacher> teachers = new ArrayList<>();
+    private int nextId = 1;
+
+    public Teacher createTeacher(String name, String subject) {
+        Teacher teacher = new Teacher(nextId++, name, subject);
+        teachers.add(teacher);
+        return teacher;
+    }
+
+    public Optional<Teacher> getTeacherById(int id) {
+        return teachers.stream().filter(t -> t.getId() == id).findFirst();
+    }
+
+    public List<Teacher> getAllTeachers() {
+        return new ArrayList<>(teachers);
+    }
+
+    public boolean updateTeacher(int id, String name, String subject) {
+        Optional<Teacher> optionalTeacher = getTeacherById(id);
+        if (optionalTeacher.isPresent()) {
+            Teacher teacher = optionalTeacher.get();
+            teacher.setName(name);
+            teacher.setSubject(subject);
+            return true;
+        }
+        return false;
+    }
+}
