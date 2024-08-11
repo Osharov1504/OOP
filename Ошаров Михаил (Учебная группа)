@@ -1,0 +1,17 @@
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        StudyGroupService service = new StudyGroupService();
+        StudyGroupController controller = new StudyGroupController(service);
+
+        List<Student> students = Arrays.asList(
+                new Student(1, "Вася Иванов"),
+                new Student(2, "Петя Петров"),
+                new Student(3, "Костя Сидоров")
+        );
+
+        StudyGroup group = controller.createGroup(1, "Путин В.В.", students);
+        System.out.println(group);
+    }
+}
