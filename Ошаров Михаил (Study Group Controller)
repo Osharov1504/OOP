@@ -1,0 +1,14 @@
+import java.util.List;
+
+public class StudyGroupController {
+    private StudyGroupService studyGroupService;
+
+    public StudyGroupController(StudyGroupService studyGroupService) {
+        this.studyGroupService = studyGroupService;
+    }
+
+    public StudyGroup createGroup(int teacherId, String teacherName, List<Student> students) {
+        Teacher teacher = new Teacher(teacherId, teacherName);
+        return studyGroupService.createStudyGroup(teacher, students);
+    }
+}
