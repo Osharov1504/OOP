@@ -1,0 +1,12 @@
+import java.util.logging.Logger;
+
+public class Calculator {
+    private static final Logger logger = Logger.getLogger(Calculator.class.getName());
+
+    public ComplexNumber calculate(ComplexNumber a, ComplexNumber b, String operator) {
+        Operation operation = OperationFactory.getOperation(operator);
+        ComplexNumber result = operation.execute(a, b);
+        logger.info("Performed operation " + operator + " on " + a + " and " + b + " resulting in " + result);
+        return result;
+    }
+}
