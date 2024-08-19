@@ -1,0 +1,17 @@
+public class Main {
+    public static void main(String[] args) {
+        Calculator calculator = new Calculator();
+
+        ComplexNumber num1 = new ComplexNumber(3, 2);
+        ComplexNumber num2 = new ComplexNumber(1, 7);
+
+        ComplexNumber additionResult = calculator.calculate(num1, num2, "+");
+        System.out.println("Addition: " + additionResult);
+
+        ComplexNumber multiplicationResult = calculator.calculate(num1, num2, "*");
+        System.out.println("Multiplication: " + multiplicationResult);
+
+        ComplexNumber divisionResult = calculator.calculate(num1, num2, "/");
+        System.out.println("Division: " + divisionResult);
+    }
+}
